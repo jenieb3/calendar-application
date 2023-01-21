@@ -34,6 +34,13 @@ description.on('click', function () {
     $(this).append('<textarea class="event-input"></textarea>');
 
 });
+// Get all fas icons so that when we hover over it turns black
+$('.saveBtn').hover(function(){
+    $(this).find('i').css('color', 'black');
+}, function(){
+    $(this).find('i').css('color', 'white');
+});
+
 
 // Get all save buttons to save to lacal storage.
 var saveButtons = $('.saveBtn');
