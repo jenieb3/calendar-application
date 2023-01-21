@@ -12,12 +12,15 @@ var timeblocks = $('.time-block');
 timeblocks.each(function () {
     var hour = $(this).find('.hour').text();
     var hourTime = moment(hour, 'ha');
+    var startOfHour = hourTime.clone().startOf('hour');
+    var endOfHour = hourTime.clone().endOf('hour');
+
 
     // Compare the current time to the hour time
-    if (currentTime.isBefore(hourTime)) {
+    if (currentTime.isBefore(startOfHour)) {
         // If the current time is before the hour time, set the background color to green
         $(this).css('background-color', '#77dd77');
-    } else if (currentTime.isSame(hourTime)) {
+    } else if (currentTime.isBetween(startOfHour, endOfHour)) {
         // If the current time is the same as the hour time, set the background color to red
         $(this).css('background-color', '#ff696');
     } else {
@@ -35,9 +38,9 @@ description.on('click', function () {
 
 });
 // Get all fas icons so that when we hover over it turns black
-$('.saveBtn').hover(function(){
+$('.saveBtn').hover(function () {
     $(this).find('i').css('color', 'black');
-}, function(){
+}, function () {
     $(this).find('i').css('color', 'white');
 });
 
@@ -55,8 +58,8 @@ saveButtons.on('click', function () {
 
 // Get all time-blocks from lacal storage on to the webpage
 var timeblocks = $('.time-block');
-timeblocks.each(function () {    
-    var hour = $(this).find('.hour').text();    
+timeblocks.each(function () {
+    var hour = $(this).find('.hour').text();
     var event = localStorage.getItem(hour);
     // If an event is found
     if (event) {
