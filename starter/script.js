@@ -4,15 +4,58 @@ $(document).ready(function () {
     $("#currentDay").text("Today is: " + currentDay);
 });
 
-//To color-code each timeblock based on past, present, and future, you can use moment.js to compare the current time to the time of each timeblock. 
-$(".container").find("div").each(function () {
-    var blockHour = moment($(this).text(), "h a").format("H");
-    var currentHour = moment().format("H");
-    if (blockHour < currentHour) {
-        $(this).addClass("past");
-    } else if (blockHour === currentHour) {
-        $(this).addClass("present");
+//To color-code each timeblock based on past, present, and future,
+//To compare the current time to the time of each timeblock. 
+//Get the current time
+var currentTime = moment();
+var timeblocks = $('.time-block');
+timeblocks.each(function () {
+    var hour = $(this).find('.hour').text();
+    var hourTime = moment(hour, 'ha');
+
+    // Compare the current time to the hour time
+    if (currentTime.isBefore(hourTime)) {
+        // If the current time is before the hour time, set the background color to green
+        $(this).css('background-color', '#77dd77');
+    } else if (currentTime.isSame(hourTime)) {
+        // If the current time is the same as the hour time, set the background color to red
+        $(this).css('background-color', '#ff696');
     } else {
-        $(this).addClass("future");
+        // If the current time is after the hour time, set the background color to grey
+        $(this).css('background-color', '#d3d3d3');
     }
 });
+
+
+//To allow a user to enter an event when they click a time-block,
+// Get all timeblocks (textarea = description)
+var description = $('.description');
+description.on('click', function () {
+    $(this).append('<textarea class="event-input"></textarea>');
+
+});
+
+// Get all save buttons to save to lacal storage.
+var saveButtons = $('.saveBtn');
+saveButtons.on('click', function () {
+    // Get the parent timeblock
+    var timeblock = $(this).parent();
+    var event = timeblock.find('.description').val();
+    var hour = timeblock.find('.hour').text();
+    // Save the event in local storage
+    localStorage.setItem(hour, event);
+});
+
+// Get all time-blocks from lacal storage on to the webpage
+var timeblocks = $('.time-block');
+timeblocks.each(function () {    
+    var hour = $(this).find('.hour').text();    
+    var event = localStorage.getItem(hour);
+    // If an event is found
+    if (event) {
+        // Add the event to the textarea
+        $(this).find('.description').val(event);
+    }
+});
+
+
