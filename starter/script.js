@@ -22,7 +22,7 @@ timeblocks.each(function () {
         $(this).css('background-color', '#77dd77');
     } else if (currentTime.isBetween(startOfHour, endOfHour)) {
         // If the current time is the same as the hour time, set the background color to red
-        $(this).css('background-color', '#ff696');
+        $(this).css('background-color', '#ff6961');
     } else {
         // If the current time is after the hour time, set the background color to grey
         $(this).css('background-color', '#d3d3d3');
