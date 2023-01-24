@@ -19,6 +19,7 @@ Please refer to repo.
 
 ## Link to deployed application
 
+https://jenieb3.github.io/calendar-application/
 
 ## Screenshot
 ![Screenshot](./starter/workday-schedule.png)
